@@ -1,0 +1,66 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+const int N= 1000;
+const int INF= 1e9;
+vector<bool> vis(N);
+vector<vector<int>>adj[N]; // adjacency list -array of vectors
+vector<int>dist(N),parent(N); 
+int cost=0;
+int n,m;
+
+
+
+void primsMST(int source)
+{
+    for(int i=0;i<n;i++)
+    {
+        dist[i]= INF; //initially dist is equals to infinity
+    }
+
+    set<vector<int>>s;
+    dist[source]=0;
+    s.insert({0,source});
+    //{wt,vertex}
+
+    while(!s.empty())
+    {
+        auto x= *(s.begin()); //extract top element of stack
+        s.erase(x);
+        vis[x[1]]=true;
+        int u= x[1]; //edge
+        int v= parent[x[1]];
+        int w= x[0];
+
+        cout<<u<<" "<<v<<" "<<w<<"\n";
+        cost +=w;
+        for(auto it: adj[x[1]])
+        {
+
+            if(vis[it[0]])
+                continue;
+            if(dist[it[0]]> it[1])
+            {
+                s.erase({dist[it[0]]});
+                dist[it[0]]=it[1];
+                s.insert({dist[it[0]]});
+                parent[it[0]]=x[1];
+
+            }
+        }
+    }
+}
+
+int main()
+{
+    cin>>n>>m;
+    for(int i=0;i<m;i++) //for adjancency list
+    {
+        int u,v,w; // edge(u,v),weight
+        cin>>u>>v>>w;
+        adj[u].push_back({v,w});
+        adj[v].push_back({u,w});
+    }
+    primsMST(0);
+    cout<<cost;
+}
