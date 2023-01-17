@@ -20,7 +20,7 @@ int main()
     curw = w;
     while (curw >= 0)
     {
-        maxi = -1;
+        maxi = maxi-1;
         for (i = 0; i < n; i++)
         {
             if ((used[i] == 0) && ((maxi == -1) || (((float) array[1][i]
