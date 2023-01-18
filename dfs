@@ -10,8 +10,7 @@ int main()
     cin >> m;
     cout <<"\nEDGES \n";
     for(k=1; k<=m; k++)
-    {
-        cin >>i>>j;
+    { cin >>i>>j;
         cost[i][j]=1;
     }
     cout <<"Enter initial vertex to traverse from:";
