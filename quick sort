@@ -1,0 +1,60 @@
+#include<stdio.h>
+
+int partition(int arr[],int low,int high)
+{   int temp,j;
+    int pivot= arr[high];
+    int i= low-1;
+
+    for(j=low;j<=high-1;j++)
+    {
+        if(arr[j]<pivot)
+        {
+            i++;
+            temp=arr[i];
+            arr[i]=arr[j];
+            arr[j]=temp;
+
+        }
+    }
+
+    temp= arr[i+1];
+    arr[i+1]=arr[high];
+    arr[high]=temp;
+    return (i+1);  //index of element from where we perform partitioning.
+}
+
+
+void QS(int arr[],int low,int high)
+{
+    if(low<high)
+    {
+        int index= partition(arr,low,high);
+        QS(arr,low,index-1);
+        QS(arr,index+1,high);
+    }
+}
+
+int main()
+{
+    int t;
+    scanf("%d",&t);
+    while(t--)
+    {
+        int arr[100],n,i;
+
+        scanf("%d",&n);
+
+        for(i=0;i<n;i++)
+        {
+        scanf("%d",&arr[i]);
+        }
+
+       QS(arr,0,n-1);
+
+        for(i=0;i<n;i++)
+        {
+        printf("%d",arr[i]);
+        printf(" ");
+        }
+    }
+}
